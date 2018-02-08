@@ -1,0 +1,154 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>MC</th>\n",
+       "      <th>Diameter</th>\n",
+       "      <th>Result</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Test ID</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>690</th>\n",
+       "      <td>20.0</td>\n",
+       "      <td>15.0</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>691</th>\n",
+       "      <td>22.0</td>\n",
+       "      <td>15.0</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>692</th>\n",
+       "      <td>24.0</td>\n",
+       "      <td>15.0</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>693</th>\n",
+       "      <td>26.0</td>\n",
+       "      <td>15.0</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>694</th>\n",
+       "      <td>28.0</td>\n",
+       "      <td>15.0</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           MC  Diameter  Result\n",
+       "Test ID                        \n",
+       "690      20.0      15.0     1.0\n",
+       "691      22.0      15.0     1.0\n",
+       "692      24.0      15.0     1.0\n",
+       "693      26.0      15.0     1.0\n",
+       "694      28.0      15.0     0.0"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#load data file\n",
+    "data_old = pd.read_excel('./2018_MC_raw_Data_SS.xlsx',sheetname=0,\n",
+    "                         index_col = 'Test ID')\n",
+    "data_new = pd.read_excel('./2018_MC_raw_Data_SS.xlsx',sheetname=1,\n",
+    "                         index_col = 'Test ID')\n",
+    "\n",
+    "#index data to use only MC, Diameter and Result\n",
+    "data_new_reduced = data_new.loc[:,['MC','Diameter','Result']]\n",
+    "data_new_reduced['Result'] = (data_new_reduced['Result']\n",
+    "                             .map({'SI': 1, 'NI': 0}))\n",
+    "data_new_reduced.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#define functions for logistic regression\n",
+    "from sklearn.linear_model import LinearRegression\n",
+    "from sklearn.cross_validation import train_test_split\n",
+    "import statsmodels.api as sm\n",
+    "%matplotlib inline\n",
+    "\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.14"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
